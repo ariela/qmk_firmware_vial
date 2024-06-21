@@ -4,6 +4,28 @@
         "rows": 10,
         "cols": 6
     },
+    "customKeycodes": [
+        {
+          "name": "KILL W",
+          "title": "Kill Switch to W",
+          "shortName": "KillW"
+        },
+        {
+          "name": "KILL S",
+          "title": "Kill Switch to S",
+          "shortName": "KillS"
+        },
+        {
+          "name": "KILL A",
+          "title": "Kill Switch to A",
+          "shortName": "KillA"
+        },
+        {
+          "name": "KILL D",
+          "title": "Kill Switch to S",
+          "shortName": "KillD"
+        }
+    ],
     "layouts": {
         "keymap": [
             [{"x":3},"0,3","0,4","0,5",{"x":6},"5,5","5,4","5,3"],

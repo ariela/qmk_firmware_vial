@@ -27,6 +27,14 @@ enum layer_number {
     _ADJUST,
 };
 
+// カスタムキーコードの定義
+enum blender_keycode {
+    CK_W = QK_KB_0,
+    CK_S,
+    CK_A,
+    CK_D
+};
+
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
 #define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
 #define KC_G_JA LGUI_T(KC_LNG1)     // cmd or win
@@ -119,3 +127,86 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [3] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
 };
 #endif
+
+
+//==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8====+====9====+====0
+// カスタムキーコード対応
+//==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8====+====9====+====0
+// キルスイッチ用フラグ
+static bool keep_key_w = false;
+static bool keep_key_s = false;
+static bool keep_key_a = false;
+static bool keep_key_d = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CK_W:
+            // ----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+            // キルスイッチ: W
+            if (record->event.pressed) {
+                keep_key_w = true;
+                unregister_code(KC_S);
+                register_code(KC_W);
+            } else {
+                keep_key_w = false;
+                unregister_code(KC_W);
+                if (keep_key_s) {
+                    register_code(KC_S);
+                }
+            }
+            return false;
+
+        case CK_S:
+            // ----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+            // キルスイッチ: S
+            if (record->event.pressed) {
+                keep_key_s = true;
+                unregister_code(KC_W);
+                register_code(KC_S);
+            } else {
+                keep_key_s = false;
+                unregister_code(KC_S);
+                if (keep_key_w) {
+                    register_code(KC_W);
+                }
+            }
+            return false;
+
+        case CK_A:
+            // ----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+            // キルスイッチ: A
+            if (record->event.pressed) {
+                keep_key_a = true;
+                unregister_code(KC_D);
+                register_code(KC_A);
+            } else {
+                keep_key_a = false;
+                unregister_code(KC_A);
+                if (keep_key_d) {
+                    register_code(KC_D);
+                }
+            }
+            return false;
+
+        case CK_D:
+            // ----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+            // キルスイッチ: D
+            if (record->event.pressed) {
+                keep_key_d = true;
+                unregister_code(KC_A);
+                register_code(KC_D);
+            } else {
+                keep_key_d = false;
+                unregister_code(KC_D);
+                if (keep_key_a) {
+                    register_code(KC_A);
+                }
+            }
+            return false;
+
+        default:
+            // ----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+            // その他キー
+            return true;
+    }
+}
