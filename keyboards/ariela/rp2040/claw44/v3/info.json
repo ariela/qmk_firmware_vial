@@ -16,7 +16,8 @@
     "features": {
         "via": true,
         "vial": true,
-        "encoder": true
+        "encoder": true,
+        "oled": true
     },
     "encoder": {
         "rotary": [

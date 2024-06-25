@@ -19,3 +19,18 @@
 // Vialのロック解除キーコンボの指定
 #define VIAL_UNLOCK_COMBO_ROWS {0, 0}
 #define VIAL_UNLOCK_COMBO_COLS {0, 1}
+
+//==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8====+====9====+====0
+// OLED用 定義
+//==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8====+====9====+====0
+#ifdef OLED_ENABLE
+    // 10秒間、非アクティブになるとOLED画面をスクロールする
+    #define OLED_SCROLL_TIMEOUT 10000
+    //#define HAL_USE_I2C TRUE
+    // I2CドライバーをD1に設定
+    #define I2C_DRIVER I2CD1
+    // I2C1のSDAピンの設定
+    #define I2C1_SDA_PIN GP2
+    // I2C1のSCLピンの設定
+    #define I2C1_SCL_PIN GP3
+#endif
