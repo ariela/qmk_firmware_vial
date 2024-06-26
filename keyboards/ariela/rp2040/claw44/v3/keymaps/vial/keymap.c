@@ -140,6 +140,12 @@ static bool keep_key_s = false;
 static bool keep_key_a = false;
 static bool keep_key_d = false;
 
+// レイヤー変更時に処理実行
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+// キー押下時に処理実行
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CK_W:
@@ -209,6 +215,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             // ----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
             // その他キー 
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
             return true;
     }
 }
